@@ -289,7 +289,26 @@ export EDITOR=nano
 ```bash
 echo $EDITOR
 ```
+### Install AWS CLI
+1. Install AWS CLI
+```bash
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+```
+```bash
+sudo apt install unzip && unzip awscliv2.zip
+```
+```bash
+sudo ./aws/install
+```
 
+2. Use your AWS credentials to configure AWS CLI
+```bash
+aws configure
+```
+3. Confirm AWS CLI installation
+```bash
+aws --version
+```
 
 ### List all installed packages
 1. List your installed packages
