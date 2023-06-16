@@ -1,11 +1,41 @@
 ## How I setup WSL Ubuntu for development
+## Table of Contents
+1. [Install WSL](#install-wsl)
+2. [See user and OS details](#see-user-and-os-details)
+3. [User setup](#user-setup)
+4. [Install updates](#install-updates)
+
 ### Install WSL
 1. [Enable WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 2. [Install Ubuntu from the Microsoft Store](https://www.microsoft.com/en-us/p/ubuntu/9nblggh4msv6)
 3. [Install Windows Terminal from the Microsoft Store](https://www.microsoft.com/en-us/p/windows-terminal/9n0dx20hk701)
+### See user and OS details
+1. See user
+```bash
+whoami
+```
+which should return
+```bash
+shamsur
+```
+or 
+```bash
+root
+```
+2. See all users
+```bash
+getent passwd
+```
+```bash
+getent passwd | awk -F: '{ if ($3 >= 1000 && $3 != 65534) print $1 }' # Only show human users
+```
+3. See OS details
+```bash
+lsb_release -a
+```
 
 ### User setup
-1. Create a new user
+1. Create a new user if not already created
 ```bash
 sudo adduser shamsur
 ```
@@ -17,29 +47,33 @@ sudo usermod -aG sudo shamsur
 ```bash
 su - shamsur
 ```
-4. Confirm user change
-```bash
-whoami
-```
-5. Confirm sudo group membership
-```bash
-groups
-```
-6. Confirm sudo access
+4. Confirm sudo access
 ```bash
 sudo whoami
 ```
-7. Confirm sudo access without password
+should return
 ```bash
-sudo -l
+root
 ```
-8. List users
+5. See all sudo users
 ```bash
-cat /etc/passwd
+grep -Po '^sudo.+:\K.*$' /etc/group
 ```
-9. Delete user
+6. Sudo without password
 ```bash
-sudo userdel -r shamsur
+sudo visudo
+```
+and add the following line
+```bash
+shamsur ALL=(ALL) NOPASSWD: ALL
+```
+7. Remove a user from sudo group
+```bash
+sudo deluser shamsur sudo
+```
+8. Delete a user
+```bash
+sudo deluser shamsur
 ```
 
 ### Install updates
@@ -56,20 +90,47 @@ sudo apt install zsh
 ```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
-3. Confirm installation
-```bash
-zsh --version
-```
-4. Set ZSH as default shell
+3. Set ZSH as default shell
 ```bash
 chsh -s $(which zsh)
 ```
-5. Restart shell
+and set theme to agnoster (optional)
+```bash
+sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/g' ~/.zshrc
+```
+make sure to have the terminal font set to MesloLGS Nerd Font in Windows Terminal settings
+4. Restart shell
 ```bash
 exec $SHELL
 ```
+5. Confirm ZSH installation
+```bash
+zsh --version
+```
+### Install Brew
+1. Install Brew
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+2. Add Brew to PATH
+```bash
+echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.zshrc
+```
+3. Restart shell
+```bash
+exec $SHELL
+```
+4. Confirm Brew installation
+```bash
+brew --version
+```
+
 ### Install Git
-1. Install Git
+1. Check Git exist
+```bash
+git --version
+```
+if not, install Git
 ```bash
 sudo apt install git
 ```
@@ -83,29 +144,36 @@ git config --global user.email "shamsur314@gmail.com"
 git config --list
 ```
 
-### SSH setup
+### SSH setup for GitHub
 1. Generate SSH key
 ```bash
-ssh-keygen -t rsa -b 4096 -C "
+ssh-keygen -t ed25519 -C "shamsur314@gmail.com"
 ```
+and press enter to save the key in the default location
 2. Add SSH key to ssh-agent
 ```bash
 eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_rsa
+ssh-add ~/.ssh/id_ed25519
 ```
 3. Copy SSH key to clipboard
 ```bash
-clip < ~/.ssh/id_rsa.pub
+xclip -selection clipboard < ~/.ssh/id_ed25519.pub
+```
+Install xclip if not already installed
+```bash
+sudo apt install xclip
 ```
 4. Add SSH key to GitHub
-5. Confirm SSH key
+5. Test SSH connection
 ```bash
 ssh -T
 ```
+
+
 ### Install Node.js with nvm
 1. Install nvm
 ```bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 ```
 2. Add nvm to PATH
 ```bash
@@ -134,7 +202,7 @@ npm -v
 ### Install Yarn
 1. Install Yarn
 ```bash
-sudo npm install --global yarn
+npm install --global yarn
 ```
 ### Install Docker
 1. Install Docker
@@ -161,59 +229,81 @@ docker --version
 docker-compose --version
 ```
 ### Install Python with pyenv
-1. Install dependencies
+1. Install pyenv
+
 ```bash
 sudo apt install make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev
 ```
-2. Install pyenv
 ```bash
 curl https://pyenv.run | bash
 ```
-3. Add pyenv to PATH
+
+2. Add pyenv init to shell
 ```bash
-echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> ~/.zshrc
-```
-4. Add pyenv init to shell
-```bash
+echo 'eval "$(pyenv init --path)"' >> ~/.zshrc
 echo 'eval "$(pyenv init -)"' >> ~/.zshrc
 ```
-5. Add pyenv virtualenv-init to shell
-```bash
-echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc
-```
-6. Restart shell
+3. Restart shell
 ```bash
 exec $SHELL
 ```
-7. Install Python
+4. Install Python
 ```bash
 pyenv install 3.8.5
 ```
-8. Set global Python version
+5. Set global Python version
 ```bash
 pyenv global 3.8.5
-```
-9. Confirm Python version
+```	
+6. Confirm Python version
 ```bash
 python -V
 ```
-10. Change Python version
+7. Change Python version
 ```bash
 pyenv global 3.9.0
 ```
 ### Install Nano    
-1. Install Nano
+1. Install Nano if not already installed
 ```bash
 sudo apt install nano
 ```
-### Install VS Code in WSL
-1. Install VS Code
+2. Set Nano as default editor
 ```bash
-sudo apt install code
+export EDITOR=nano
 ```
-2. Install VS Code Remote Development extension
+3. Check default editor
+```bash
+echo $EDITOR
+```
 
-## Must know commands
-### ZSH
-- `zsh --version` - Confirm ZSH installation
-- `chsh -s $(which zsh)` - Set ZSH as default shell
+
+### List your installed packages
+1. List your installed packages
+```bash
+apt list --installed
+```
+2. Using Homebrew
+```bash
+brew list
+```
+### Uninstall packages
+1. Uninstall package
+```bash
+sudo apt remove <package-name>
+```
+2. Uninstall using Homebrew
+```bash
+brew uninstall <package-name>
+```
+
+### Update all packages
+1. Update all packages
+```bash
+sudo apt update && sudo apt upgrade
+```
+```bash	
+brew update && brew upgrade
+```	
+
+---
