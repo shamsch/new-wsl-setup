@@ -4,6 +4,18 @@
 2. [See user and OS details](#see-user-and-os-details)
 3. [User setup](#user-setup)
 4. [Install updates](#install-updates)
+5.  [Install ZSH](#install-zsh)
+6.  [Install Brew](#install-brew)
+7.  [Install Git](#install-git)
+8.  [SSH setup for GitHub](#ssh-setup-for-github)
+9.  [Install Node.js with nvm](#install-nodejs-with-nvm)
+10. [Install Docker](#install-docker)
+11. [Install Python with pyenv](#install-python-with-pyenv)
+12. [Install Nano](#install-nano)
+13. [List all installed packages](#list-all-installed-packages)
+14. [Uninstall packages](#uninstall-packages)
+15. [Uninstall WSL](#uninstall-wsl)
+
 
 ### Install WSL
 1. [Enable WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
@@ -278,7 +290,7 @@ echo $EDITOR
 ```
 
 
-### List your installed packages
+### List all installed packages
 1. List your installed packages
 ```bash
 apt list --installed
@@ -307,3 +319,19 @@ brew update && brew upgrade
 ```	
 
 ---
+
+## Uninstall WSL
+1. Open PowerShell as Administrator
+2. List all installed distros
+```bash
+wsl --list --all
+```
+3. Unregister distro
+```bash
+wsl --unregister <distro-name>
+```
+4. Delete distro folder
+```bash
+rm -rf <distro-folder>
+```
+5. Delete it from Windows Terminal settings
