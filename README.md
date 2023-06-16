@@ -1,4 +1,4 @@
-## How I setup WSL Ubuntu for development
+# How I setup WSL Ubuntu for development
 ## Table of Contents
 1. [Install WSL](#install-wsl)
 2. [See user and OS details](#see-user-and-os-details)
@@ -16,6 +16,7 @@
 14. [Uninstall packages](#uninstall-packages)
 15. [Uninstall WSL](#uninstall-wsl)
 
+---
 
 ### Install WSL
 1. [Enable WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
