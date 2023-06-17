@@ -14,8 +14,8 @@
 12. [Install Nano](#install-nano)
 13. [List all installed packages](#list-all-installed-packages)
 14. [Uninstall packages](#uninstall-packages)
-15. [Uninstall WSL](#uninstall-wsl)
-
+15. [Install Go](#install-go-lang)
+16. [Uninstall WSL](#uninstall-wsl)
 ---
 
 ### Install WSL
