@@ -162,6 +162,10 @@ git config --list
 ```bash
 ssh-keygen -t ed25519 -C "shamsur314@gmail.com"
 ```
+or check for existing SSH key
+```bash
+ls -al ~/.ssh
+```
 and press enter to save the key in the default location
 2. Add SSH key to ssh-agent
 ```bash
@@ -177,6 +181,15 @@ Install xclip if not already installed
 sudo apt install xclip
 ```
 4. Add SSH key to GitHub
+5. Test SSH connection
+```bash
+ssh -T git@github.com
+```
+6. Setup Git commit signing
+```bash
+ git config --global gpg.format ssh
+ git config --global user.signingkey ~/.ssh/commit-sign-github
+ ```
 
 
 ### Install Node.js with nvm
