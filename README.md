@@ -350,8 +350,4 @@ wsl --list --all
 ```bash
 wsl --unregister <distro-name>
 ```
-4. Delete distro folder
-```bash
-rm -rf <distro-folder>
-```
-5. Delete it from Windows Terminal settings
+4. Delete it from Windows Terminal settings
