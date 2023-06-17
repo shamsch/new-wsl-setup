@@ -328,7 +328,6 @@ aws configure
 ```bash
 aws --version
 ```
-
 ### List all installed packages
 1. List your installed packages
 ```bash
@@ -357,6 +356,27 @@ sudo apt update && sudo apt upgrade
 brew update && brew upgrade
 ```	
 
+### Install Go lang 
+1. Download Go lang
+```bash
+wget https://golang.org/dl/go1.16.5.linux-amd64.tar.gz
+```
+2. Extract Go lang
+```bash
+sudo tar -C /usr/local -xzf go1.16.5.linux-amd64.tar.gz
+```
+3. Add Go lang to PATH
+```bash
+echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.zshrc
+```
+4. Restart shell
+```bash
+exec $SHELL
+```
+5. Confirm Go lang installation
+```bash
+go version
+```
 ---
 
 ## Uninstall WSL
