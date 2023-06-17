@@ -257,14 +257,19 @@ docker-compose --version
 ```bash
 sudo apt install make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev
 ```
+Not entirely sure if all of these are required. Skip this maybe? ^^
 ```bash
 curl https://pyenv.run | bash
 ```
 
 2. Add pyenv init to shell
 ```bash
-echo 'eval "$(pyenv init --path)"' >> ~/.zshrc
-echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+```
+```bash	
+eval "$(pyenv virtualenv-init -)"
 ```
 3. Restart shell
 ```bash
@@ -282,7 +287,11 @@ pyenv global 3.8.5
 ```bash
 python -V
 ```
-7. Change Python version
+7. Install Python
+```bash
+pyenv install 3.9.0
+```
+8. Change Python version
 ```bash
 pyenv global 3.9.0
 ```
