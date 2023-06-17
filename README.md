@@ -188,6 +188,7 @@ ssh -T git@github.com
 6. Setup Git commit signing
 ```bash
  git config --global gpg.format ssh
+ git config commit.gpgsign true
  git config --global user.signingkey ~/.ssh/commit-sign-github
  ```
 
