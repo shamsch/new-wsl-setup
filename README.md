@@ -185,11 +185,11 @@ sudo apt install xclip
 ```bash
 ssh -T git@github.com
 ```
-6. Setup Git commit signing
+6. Setup Git commit signing (create a new SSH and add to GitHub as commit signing key i.e commit-sign-github.pub)
 ```bash
  git config --global gpg.format ssh
  git config commit.gpgsign true
- git config --global user.signingkey ~/.ssh/commit-sign-github
+ git config --global user.signingkey ~/.ssh/commit-sign-github.pub
  ```
 
 
