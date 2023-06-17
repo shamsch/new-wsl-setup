@@ -264,12 +264,13 @@ curl https://pyenv.run | bash
 
 2. Add pyenv init to shell
 ```bash
+echo '
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+eval "$(pyenv init -)"' >> ./.zshrc
 ```
 ```bash	
-eval "$(pyenv virtualenv-init -)"
+echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc
 ```
 3. Restart shell
 ```bash
