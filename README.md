@@ -177,10 +177,6 @@ Install xclip if not already installed
 sudo apt install xclip
 ```
 4. Add SSH key to GitHub
-5. Test SSH connection
-```bash
-ssh -T
-```
 
 
 ### Install Node.js with nvm
