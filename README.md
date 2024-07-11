@@ -46,6 +46,14 @@ getent passwd | awk -F: '{ if ($3 >= 1000 && $3 != 65534) print $1 }' # Only sho
 ```bash
 lsb_release -a
 ```
+4. For more and prettifed OS detail, run
+```bash
+   sudo apt install neofetch
+```
+and then
+```bash
+   neofetch
+```
 
 ### User setup
 1. Create a new user if not already created
