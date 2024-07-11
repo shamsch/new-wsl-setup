@@ -389,6 +389,11 @@ go version
 ```
 ---
 
+## Check all installed packages:
+1. Run this command:
+   ```bash
+   dpkg -l
+   ```
 ## Uninstall WSL
 1. Open PowerShell as Administrator
 2. List all installed distros
