@@ -175,6 +175,7 @@ or check for existing SSH key
 ls -al ~/.ssh
 ```
 and press enter to save the key in the default location
+
 2. Add SSH key to ssh-agent
 ```bash
 eval "$(ssh-agent -s)"
