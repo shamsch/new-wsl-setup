@@ -237,22 +237,26 @@ npm -v
 npm install --global yarn
 ```
 ### Install Docker
-1. Install Docker
+> AVOID THIS AND JUST ENABLE WSL INTEGRATION FROM DOCKER DESKTOP ON WINDOWS AND RESTART
+
+~~1. Install Docker~~
 ```bash
 sudo apt install docker.io
 ```
-2. Install Docker Compose
+~~2. Install Docker Compose~~
 ```bash
 sudo apt install docker-compose
 ```
-3. Add user to Docker group
+~~3. Add user to Docker group~~
 ```bash
 sudo usermod -aG docker $USER
 ```
-4. Restart shell
+~~4. Restart shell~~
 ```bash
 exec $SHELL
 ```
+
+
 5. Confirm Docker installation
 ```bash
 docker --version
@@ -318,6 +322,43 @@ export EDITOR=nano
 ```bash
 echo $EDITOR
 ```
+
+### Install Go lang 
+1. Download Go lang
+```bash
+GO_VERSION=$(curl -s https://go.dev/VERSION?m=text | head -n 1).linux-amd64.tar.gz
+```
+```bash
+wget https://golang.org/dl/${GO_VERSION}
+```
+2. Extract Go lang
+```bash
+sudo tar -C /usr/local -xzf $GO_VERSION
+```
+3. Add Go lang to PATH
+```bash
+echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.zshrc
+```
+4. Restart shell
+```bash
+exec $SHELL
+```
+5. Confirm Go lang installation
+```bash
+go version
+```
+
+### Install Terraform
+1. Run this:
+```bash
+brew tap hashicorp/tap
+brew install hashicorp/tap/terraform
+```
+2. Confirm:
+```bash
+terraform -help
+```
+
 ### Install AWS CLI
 1. Install AWS CLI
 ```bash
@@ -343,6 +384,11 @@ aws --version
 ```bash
 apt list --installed
 ```
+better view:
+```bash
+   dpkg -l
+```
+
 2. Using Homebrew
 ```bash
 brew list
@@ -366,34 +412,9 @@ sudo apt update && sudo apt upgrade
 brew update && brew upgrade
 ```	
 
-### Install Go lang 
-1. Download Go lang
-```bash
-wget https://golang.org/dl/go1.16.5.linux-amd64.tar.gz
-```
-2. Extract Go lang
-```bash
-sudo tar -C /usr/local -xzf go1.16.5.linux-amd64.tar.gz
-```
-3. Add Go lang to PATH
-```bash
-echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.zshrc
-```
-4. Restart shell
-```bash
-exec $SHELL
-```
-5. Confirm Go lang installation
-```bash
-go version
-```
+
 ---
 
-## Check all installed packages:
-1. Run this command:
-   ```bash
-   dpkg -l
-   ```
 ## Uninstall WSL
 1. Open PowerShell as Administrator
 2. List all installed distros
