@@ -200,6 +200,19 @@ ssh -T git@github.com
 ```
 6. Setup Git commit signing (create a new SSH and add to GitHub as commit signing key i.e commit-sign-github.pub)
 ```bash
+ssh-keygen -t ed25519 -C "shamsur314@gmail.com" -f ~/.ssh/commit-sign-github
+```
+Add it to ssh-agent
+```bash
+ssh-add ~/.ssh/commit-sign-github
+```
+Copy the key to clipboard
+```bash
+xclip -selection clipboard < ~/.ssh/commit-sign-github.pub
+```
+Go to `GitHub > Settings > SSH and GPG keys > New SSH Key > Paste the key and select type "Signing key" > Add SSH key`
+7. Add commit signing key to GitHub
+```bash
  git config --global gpg.format ssh
  git config --global commit.gpgsign true
  git config --global user.signingkey ~/.ssh/commit-sign-github.pub
